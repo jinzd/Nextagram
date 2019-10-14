@@ -21,8 +21,8 @@ class UserImages extends React.Component {
         // If successful, load users array with profile data
         this.setState({
           userImages: result.data,
-          isLoading: false,
-          userId: userId
+          userId: userId,
+          isLoading: false
         });
       })
       .catch(error => {

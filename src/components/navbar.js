@@ -1,14 +1,19 @@
 import React from "react";
-import Logo from "../Icons/instagram.svg";
-
+import Logo from "../Icons/mestagram.png";
+import { Link } from "react-router-dom";
 const NavBar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div>
-        <img style={style} src={Logo} alt="LOGO"></img>
-        <h1 className="navbar-brand " href="#">
-          Nextagram
-        </h1>
+        <img
+          className="rounded-circle"
+          style={style}
+          src={Logo}
+          alt="LOGO"
+        ></img>
+        <Link to="/" className="navbar-brand ">
+          Andy-gram
+        </Link>
       </div>
       <button
         className="navbar-toggler"
@@ -40,19 +45,19 @@ const NavBar = () => {
           </form>
           <ul className="navbar-nav mr-auto">
             <li className="nav-item active">
-              <a className="nav-link" href="#">
+              <Link to="//" className="nav-link">
                 Users <span className="sr-only">(current)</span>
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <Link to="//" className="nav-link">
                 Sign in
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <Link to="//" className="nav-link">
                 Sign up
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -62,7 +67,7 @@ const NavBar = () => {
 };
 
 let style = {
-  width: 30,
+  width: 50,
   marginRight: 5
 };
 

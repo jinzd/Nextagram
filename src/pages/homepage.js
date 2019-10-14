@@ -2,31 +2,30 @@ import React from "react";
 import UserImages from "../containers/userimage";
 import Image from "react-graceful-image";
 import NavBar from "../components/navbar.js";
-import UserComments from "../containers/usercomment";
+import { Link } from "react-router-dom";
+import { Button } from "reactstrap";
 
-const HomePage = prop => {
+const HomePage = props => {
   return (
     <>
       <div className="container-fluid">
         <NavBar />
-        {prop.childUsers.map((user, index) => (
+        {props.childUsers.map((user, index) => (
           <div
             style={UserIndexFeature}
             className="container-fluid row border border-0 ml-2 mb-5 rounded py-3"
             key={index}
           >
-            <div className="col-sm-2 mb-5">
-              <a href={user.id}>{user.username} </a>
-              <UserComments />
+            <div className="column col-sm-2 mb-5">
+              <Button color="primary" tag={Link} to={`/user/${user.id}`}>
+                {user.username}
+              </Button>
               <Image
                 src={user.profileImage}
                 alt="profileImage"
-                className="rounded-circle mb-5"
+                className="rounded-circle mb-5 mt-3"
                 style={MyProfileImage}
               />
-              <a href={user.id} className="btn btn-primary btn-block">
-                See More
-              </a>
             </div>
             <UserImages userId={user.id} />
           </div>
