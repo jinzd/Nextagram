@@ -2,12 +2,14 @@ import React from "react";
 import axios from "axios";
 import LoadingIndicator from "../components/LoadingIndicator";
 import NavBar from "../components/navbar.js";
+import Image from "react-graceful-image";
 
 class UserProfile extends React.Component {
   state = {
     userProfile: [],
     isLoading: true,
-    username: ""
+    username: "",
+    profileimage: ""
   };
 
   componentDidMount() {
@@ -16,7 +18,10 @@ class UserProfile extends React.Component {
     // performing a GET requestt
     users.forEach(user => {
       if (user.id === parseInt(this.props.match.params.id)) {
-        this.setState({ username: user.username });
+        this.setState({
+          username: user.username,
+          profileimage: user.profileImage
+        });
       }
     });
 
@@ -25,10 +30,11 @@ class UserProfile extends React.Component {
         `https://insta.nextacademy.com/api/v1/images?userId=${this.props.match.params.id}`
       )
       .then(result => {
-        console.log(result);
+        console.log(result.data);
         // If successful, we do stuffs with 'result'
+        // this.userProfile = { result };
         this.setState({
-          userProfile: result,
+          userProfile: result.data,
           isLoading: false,
           users: users
         });
@@ -40,14 +46,42 @@ class UserProfile extends React.Component {
   }
 
   render() {
-    const { username, isLoading } = this.state;
+    const { username, profileimage, isLoading, userProfile } = this.state;
     return (
       <>
         <NavBar />
-        {isLoading ? <LoadingIndicator /> : null}
-        <h1>User Profile Page</h1>
-        <h2>{username}</h2>
-        <div>hello</div>
+        {isLoading ? (
+          <LoadingIndicator />
+        ) : (
+          <>
+            <div className="container-fluid justify-content-center">
+              <div style={UserIndexFeature} className="container-fluid border">
+                <Image
+                  className="col-sm-3 border rounded border-dark m-3"
+                  style={MyProfileImage}
+                  src={profileimage}
+                  alt="profileimage"
+                />
+                <h2 className="col-6 d-inline">{`@${username.toUpperCase()}`}</h2>
+                <div style={UserIndexFeature} className="row my-2">
+                  {userProfile.map((image, index) => (
+                    <div key={index} className="col-sm-4 mb-2">
+                      <Image
+                        src={image}
+                        className="img-fluid"
+                        width="400"
+                        height="400"
+                        alt="userImage"
+                        retry={{ count: 10, delay: 2 }}
+                        key={index}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </>
+        )}
       </>
     );
   }
@@ -56,11 +90,9 @@ class UserProfile extends React.Component {
 export default UserProfile;
 
 const MyProfileImage = {
-  padding: 4,
   backgroundColor: "#fffff",
-
   borderRadius: 4,
   height: "auto",
-  maxWidth: 100
+  maxWidth: 300
 };
 const UserIndexFeature = { backgroundColor: "#efefef" };

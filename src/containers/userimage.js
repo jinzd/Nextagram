@@ -1,5 +1,4 @@
 import React from "react";
-import LoadingIndicator from "../components/LoadingIndicator";
 import axios from "axios";
 import Image from "react-graceful-image";
 
@@ -32,7 +31,7 @@ class UserImages extends React.Component {
   }
 
   render() {
-    const { isLoading, userImages } = this.state;
+    const { userImages } = this.state;
     return (
       <>
         <div className="col">
@@ -52,7 +51,6 @@ class UserImages extends React.Component {
             ))}
           </div>
         </div>
-        {isLoading ? <LoadingIndicator /> : null}
       </>
     );
   }

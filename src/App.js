@@ -3,7 +3,7 @@ import axios from "axios";
 import "./App.css";
 
 import HomePage from "./pages/homepage";
-import { Route, Switch, Link } from "react-router-dom";
+import { Route, Switch} from "react-router-dom";
 import UserProfile from "./pages/UserProfilePage";
 
 class App extends React.Component {
