@@ -19,7 +19,7 @@ class NavBar extends React.Component {
             AnGram
           </Link>
         </div>
-        <button className="navbar-toggler" onClick={!this.state.open}>
+        <button className="navbar-toggler" onClick={this.state.open}>
           <span className="navbar-toggler-icon"></span>
         </button>
         <Collapse in={this.state.open}>
@@ -49,13 +49,13 @@ class NavBar extends React.Component {
                     Users <span className="sr-only">(current)</span>
                   </Link>
                 </li>
-                <li className="nav-item">
-                  <Link to="//" className="nav-link">
+                {/* <li className="nav-item">
+                  <Link to="/login" className="nav-link">
                     Sign in
                   </Link>
-                </li>
+                </li> */}
                 <li className="nav-item">
-                  <Link to="//" className="nav-link">
+                  <Link to="/login" className="nav-link">
                     Sign up
                   </Link>
                 </li>
