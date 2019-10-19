@@ -4,7 +4,7 @@ import SignUpForm from "../containers/signupform";
 
 class LoginPage extends React.Component {
   state = {
-    isLogin: false
+    isLogin: true
   };
 
   toggleLogin = () => {
@@ -19,7 +19,10 @@ class LoginPage extends React.Component {
       <>
         <div>
           {isLogin ? (
-            <LoginForm toggleLogin={this.toggleLogin} />
+            <LoginForm
+              toggleLogin={this.toggleLogin}
+              loginUser={this.props.loginUser}
+            />
           ) : (
             <SignUpForm
               toggleLogin={this.toggleLogin}

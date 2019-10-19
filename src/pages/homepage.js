@@ -1,7 +1,6 @@
 import React from "react";
 import UserImages from "../containers/userimage";
 import Image from "react-graceful-image";
-import NavBar from "../components/navbar.js";
 import { Link } from "react-router-dom";
 import { Button } from "reactstrap";
 
@@ -9,7 +8,6 @@ const HomePage = props => {
   return (
     <>
       <div className="container-fluid">
-        <NavBar />
         {props.childUsers.map((user, index) => (
           <div
             style={UserIndexFeature}

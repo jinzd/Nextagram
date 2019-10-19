@@ -1,18 +1,57 @@
 import React from "react";
-import { Link } from "react-router-dom";
-
+import { Form, FormGroup, Button, Input, FormFeedback } from "reactstrap";
 class LoginForm extends React.Component {
+  state = {
+    username: "",
+    password: ""
+  };
+  handleSubmit = e => {
+    e.preventDefault();
+    const { username, password } = this.state;
+    this.props.loginUser({
+      username: username,
+      password: password
+    });
+  };
+  handleInput = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
+
   render() {
+    const { username, password } = this.state;
     return (
       <>
         <h1>Login</h1>
-        <from>
-          <input></input>
-          <input></input>
-        </from>
-        <Link onClick={this.props.toggleLogin}>
-          Haven't Signup? Stop dreamingg!!!
-        </Link>
+        <Form onSubmit={e => this.handleSubmit(e)}>
+          <FormGroup>
+            <Input
+              type="text"
+              name="username"
+              placeholder="min 6 character"
+              value={username}
+              onChange={e => this.handleInput(e)}
+            />
+
+            <FormFeedback></FormFeedback>
+          </FormGroup>
+          <FormGroup>
+            <Input
+              type="password"
+              name="password"
+              placeholder="min 6 character"
+              value={password}
+              onChange={e => this.handleInput(e)}
+            />
+
+            <FormFeedback></FormFeedback>
+          </FormGroup>
+          <Button>Login</Button>
+          <button className="btn btn-link" onClick={this.props.toggleLogin}>
+            Haven't Signup? Stop dreamingg!!!
+          </button>
+        </Form>
       </>
     );
   }

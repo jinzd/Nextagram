@@ -3,12 +3,15 @@ import axios from "axios";
 import "./App.css";
 import LoginPage from "./pages/loginpage";
 import HomePage from "./pages/homepage";
-import { Route, Switch } from "react-router-dom";
+import ProfilePage from "./pages/profilepage";
+import { Route, Switch, withRouter } from "react-router-dom";
 import UserProfile from "./pages/UserProfilePage";
+import NavBar from "./components/navbar";
 
 class App extends React.Component {
   state = {
-    parentUsers: []
+    parentUsers: [],
+    currentUser: { isLogin: false }
   };
   componentDidMount() {
     // performing a GET requestt
@@ -32,22 +35,71 @@ class App extends React.Component {
     axios
       .post("https://insta.nextacademy.com/api/v1/users/", data)
       .then(result => {
-        console.log(JSON.stringify(result.data));
-        // console.log(result);
+        console.log(result.data);
+        localStorage.setItem("userToken", result.data.auth_token);
+        localStorage.setItem("userData", JSON.stringify(result.data.user));
+        this.setState(
+          {
+            currentUser: { ...result.data.user, isLogin: true }
+          },
+          () => {
+            this.props.history.push(`/user/${result.data.user.id}`);
+          }
+        );
+      })
+      .catch(error => {
+        console.log(error);
       });
   };
 
+  loginUser = data => {
+    console.log(data);
+    axios
+      .post("https://insta.nextacademy.com/api/v1/login", data)
+      .then(response => {
+        // console.log(response);
+        localStorage.setItem("userToken", response.data.auth_token);
+        localStorage.setItem("userData", JSON.stringify(response.data.user));
+        this.setState(
+          {
+            currentUser: { ...response.data.user, isLogin: true }
+          },
+          () => {
+            this.props.history.push("/profile");
+          }
+        );
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+  LogOut = () => {
+    localStorage.removeItem("userToken");
+    this.setState({
+      currentUser: { isLogin: false }
+    });
+    console.log(this.state.currentUser);
+  };
+
   render() {
-    const { parentUsers } = this.state;
+    const { parentUsers, currentUser } = this.state;
 
     return (
       <>
+        <NavBar LogOut={this.LogOut} currentUser={currentUser} />
         <Switch>
           <Route
             exact
             path="/"
             component={() => {
               return <HomePage childUsers={parentUsers} />;
+            }}
+          />
+          <Route
+            path="/profile"
+            component={() => {
+              return <ProfilePage />;
             }}
           />
           <Route
@@ -59,7 +111,11 @@ class App extends React.Component {
           <Route
             path="/login"
             component={props => (
-              <LoginPage {...props} signUpUser={this.signUpUser} />
+              <LoginPage
+                {...props}
+                signUpUser={this.signUpUser}
+                loginUser={this.loginUser}
+              />
             )}
           />
         </Switch>
@@ -68,4 +124,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withRouter(App);
