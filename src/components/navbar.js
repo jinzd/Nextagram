@@ -2,10 +2,11 @@ import React from "react";
 import Logo from "../Icons/logo.gif";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
+
 class NavBar extends React.Component {
   state = { open: false };
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div>
@@ -19,7 +20,17 @@ class NavBar extends React.Component {
             AnGram
           </Link>
         </div>
-
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
         <div
           className="collapse navbar-collapse justify-content-end"
           id="navbarSupportedContent"

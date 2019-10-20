@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
 import LoadingIndicator from "../components/LoadingIndicator";
-import NavBar from "../components/navbar.js";
 import Image from "react-graceful-image";
 
 class UserProfile extends React.Component {
@@ -49,7 +48,6 @@ class UserProfile extends React.Component {
     const { username, profileimage, isLoading, userProfile } = this.state;
     return (
       <>
-        <NavBar />
         {isLoading ? (
           <LoadingIndicator />
         ) : (

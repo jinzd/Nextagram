@@ -2,6 +2,8 @@ import React from "react";
 import axios from "axios";
 import Image from "react-graceful-image";
 import LoadingIndicator from "../components/LoadingIndicator";
+import ImageUpload from "../containers/imageupload";
+
 class ProfilePage extends React.Component {
   state = {
     images: [],
@@ -39,24 +41,40 @@ class ProfilePage extends React.Component {
         {isLoading ? (
           <LoadingIndicator />
         ) : (
-          <div>
-            <h1>{user.username}'s Profile</h1>
-            <Image src={user.profile_picture} />
-            {images.map(image => (
-              <div sm={4} className="mb-2">
-                {" "}
-                <Image
-                  src={image}
-                  className="user-images"
-                  alt={`Image from ${user.username} `}
-                />{" "}
+          <div className="container-fluid justify-content-center">
+            <div height="600" className="d-flex justify-content-center">
+              <Image
+                src={user.profile_picture}
+                retry={{ count: 10, delay: 2 }}
+              />
+              <h1 className="p-5">{user.username}</h1>
+            </div>
+            <div style={UserIndexFeature} className="container-fluid border">
+              <div style={UserIndexFeature} className="row my-2">
+                {images.map((image, index) => (
+                  <div
+                    key={index}
+                    className="img-responsive col-xl-3 col-lg-4 col-sm-6 col-12 mb-2"
+                  >
+                    {" "}
+                    <Image
+                      src={image}
+                      width="300vw"
+                      className="user-images m-1"
+                      retry={{ count: 10, delay: 2 }}
+                      alt={`Image from ${user.username} `}
+                    />{" "}
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
         )}
+        <ImageUpload />
       </>
     );
   }
 }
 
 export default ProfilePage;
+const UserIndexFeature = { backgroundColor: "#efefef" };

@@ -27,7 +27,7 @@ class App extends React.Component {
 
       .catch(error => {
         // If unsuccessful, we notify users what went wrong
-        console.log("ERROR: ", error);
+        console.log(error.response);
       });
   }
 
@@ -48,7 +48,7 @@ class App extends React.Component {
         );
       })
       .catch(error => {
-        console.log(error);
+        console.log(error.response);
       });
   };
 
@@ -76,6 +76,7 @@ class App extends React.Component {
 
   LogOut = () => {
     localStorage.removeItem("userToken");
+    localStorage.removeItem("userData");
     this.setState({
       currentUser: { isLogin: false }
     });
@@ -96,12 +97,7 @@ class App extends React.Component {
               return <HomePage childUsers={parentUsers} />;
             }}
           />
-          <Route
-            path="/profile"
-            component={() => {
-              return <ProfilePage />;
-            }}
-          />
+          <Route path="/profile" component={ProfilePage} />
           <Route
             path="/user/:id"
             component={props => {

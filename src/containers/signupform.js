@@ -54,18 +54,23 @@ class SignUpForm extends React.Component {
     if (newUsername.length >= 6) {
       Axios.get(
         `https://insta.nextacademy.com/api/v1/users/check_name?username=${newUsername}`
-      ).then(resp => {
-        // console.log(resp);
-        if (resp.data.valid) {
-          this.setState({
-            usernameValid: true
-          });
-        } else {
-          this.setState({
-            usernameValid: false
-          });
-        }
-      });
+      )
+        .then(resp => {
+          // console.log(resp);
+          if (resp.data.valid) {
+            this.setState({
+              usernameValid: true
+            });
+          } else {
+            this.setState({
+              usernameValid: false
+            });
+          }
+        })
+        .catch(error => {
+          // If unsuccessful, we notify users what went wrong
+          console.log(error.response);
+        });
     }
   };
 
