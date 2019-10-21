@@ -11,7 +11,7 @@ class ProfilePage extends React.Component {
     isLoading: false
   };
 
-  componentDidMount() {
+  userImageRecall = () => {
     const jwt = localStorage.getItem("userToken");
 
     // console.log(jwt);
@@ -33,6 +33,10 @@ class ProfilePage extends React.Component {
           isLoading: false
         });
       });
+  };
+
+  componentDidMount() {
+    this.userImageRecall();
   }
   render() {
     const { images, user, isLoading } = this.state;
@@ -70,7 +74,7 @@ class ProfilePage extends React.Component {
             </div>
           </div>
         )}
-        <ImageUpload />
+        <ImageUpload userImageRecall={this.userImageRecall} />
       </>
     );
   }

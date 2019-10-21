@@ -29,7 +29,7 @@ class LoginForm extends React.Component {
             <Input
               type="text"
               name="username"
-              placeholder="min 6 character"
+              placeholder="username"
               value={username}
               onChange={e => this.handleInput(e)}
             />
@@ -40,7 +40,7 @@ class LoginForm extends React.Component {
             <Input
               type="password"
               name="password"
-              placeholder="min 6 character"
+              placeholder="password"
               value={password}
               onChange={e => this.handleInput(e)}
             />

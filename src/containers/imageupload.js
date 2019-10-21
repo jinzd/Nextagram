@@ -1,6 +1,6 @@
 import React from "react";
 import Axios from "axios";
-import { Form, FormGroup, Input, FormText } from "reactstrap";
+import { Form, FormGroup, FormText } from "reactstrap";
 import Loader from "../Icons/Eclipse";
 
 class ImageUpload extends React.Component {
@@ -34,9 +34,11 @@ class ImageUpload extends React.Component {
         console.log(response.data);
         this.setState({
           imageFile: null,
-          previewImage: null,
+          previewImage: "",
           isloading: false
         });
+        this.props.userImageRecall();
+        this.fileInput.value = null;
       })
       .catch(error => {
         // If unsuccessful, we notify users what went wrong
@@ -59,10 +61,13 @@ class ImageUpload extends React.Component {
         <div className="d-flex justify-content-center">
           <Form onSubmit={e => this.handleFileSubmit(e)}>
             <FormGroup>
-              <Input
+              <input
                 type="file"
                 name="image-file"
                 onChange={e => this.handleFile(e)}
+                ref={r => {
+                  this.fileInput = r;
+                }}
               />
             </FormGroup>
             <FormText color="muted">
@@ -83,7 +88,6 @@ class ImageUpload extends React.Component {
             </button>
           </Form>
         </div>
-        }
       </>
     );
   }

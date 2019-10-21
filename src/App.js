@@ -14,7 +14,12 @@ class App extends React.Component {
     currentUser: { isLogin: false }
   };
   componentDidMount() {
+    let checkToken = localStorage.getItem("userToken");
+    // console.log(checkToken);
     // performing a GET requestt
+    if (checkToken) {
+      this.setState({ currentUser: { isLogin: true } });
+    }
 
     axios
       .get(`https://insta.nextacademy.com/api/v1/users`)
